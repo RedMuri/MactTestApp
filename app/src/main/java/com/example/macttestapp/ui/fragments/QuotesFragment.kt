@@ -1,18 +1,23 @@
 package com.example.macttestapp.ui.fragments
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.preference.PreferenceManager
+import com.example.macttestapp.MactTestApp
 import com.example.macttestapp.databinding.FragmentQuotesBinding
-import com.example.macttestapp.domain.model.Quote
 import com.example.macttestapp.ui.adapters.QuotesAdapter
 import com.example.macttestapp.ui.state.QuotesScreenState
 import com.example.macttestapp.ui.viewmodel.QuotesViewModel
+import com.example.macttestapp.ui.viewmodel.ViewModelFactory
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 
 class QuotesFragment : Fragment() {
@@ -25,8 +30,18 @@ class QuotesFragment : Fragment() {
         QuotesAdapter()
     }
 
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
     private val quotesViewModel by lazy {
-        ViewModelProvider(this)[QuotesViewModel::class.java]
+        ViewModelProvider(this, viewModelFactory)[QuotesViewModel::class.java]
+    }
+    private val component by lazy {
+        (requireActivity().application as MactTestApp).component
+    }
+
+    override fun onAttach(context: Context) {
+        component.inject(this)
+        super.onAttach(context)
     }
 
     override fun onCreateView(
@@ -41,6 +56,10 @@ class QuotesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         observeViewModel()
+    }
+
+    private fun setupRecyclerView() {
+        binding.rvQuotes.adapter = adapterEateries
     }
 
     private fun observeViewModel() {
@@ -61,10 +80,10 @@ class QuotesFragment : Fragment() {
                 }
             }
         }
-
     }
 
-    private fun setupRecyclerView() {
-        binding.rvQuotes.adapter = adapterEateries
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

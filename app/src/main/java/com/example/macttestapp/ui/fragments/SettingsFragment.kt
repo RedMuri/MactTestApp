@@ -1,5 +1,6 @@
 package com.example.macttestapp.ui.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,8 +14,11 @@ import androidx.preference.PreferenceManager
 import com.example.macttestapp.MactTestApp
 import com.example.macttestapp.databinding.FragmentSettingsBinding
 import com.example.macttestapp.ui.state.SettingsScreenState
+import com.example.macttestapp.ui.viewmodel.ProductsViewModel
 import com.example.macttestapp.ui.viewmodel.SettingsViewModel
+import com.example.macttestapp.ui.viewmodel.ViewModelFactory
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class SettingsFragment : Fragment() {
 
@@ -22,10 +26,20 @@ class SettingsFragment : Fragment() {
     private val binding: FragmentSettingsBinding
         get() = _binding ?: throw RuntimeException("FragmentSettingsBinding == null")
 
-
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
     private val settingsViewModel by lazy {
-        ViewModelProvider(this)[SettingsViewModel::class.java]
+        ViewModelProvider(this, viewModelFactory)[SettingsViewModel::class.java]
     }
+    private val component by lazy {
+        (requireActivity().application as MactTestApp).component
+    }
+
+    override fun onAttach(context: Context) {
+        component.inject(this)
+        super.onAttach(context)
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -81,6 +95,10 @@ class SettingsFragment : Fragment() {
                 }
             }
         }
+    }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
