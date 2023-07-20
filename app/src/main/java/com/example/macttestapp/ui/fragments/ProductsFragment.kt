@@ -5,10 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.example.macttestapp.databinding.FragmentProductsBinding
-import com.example.macttestapp.domain.model.Product
 import com.example.macttestapp.ui.adapters.ProductsAdapter
+import com.example.macttestapp.ui.state.ProductsScreenState
+import com.example.macttestapp.ui.state.QuotesScreenState
+import com.example.macttestapp.ui.viewmodel.ProductsViewModel
 import com.squareup.picasso.Picasso
+import kotlinx.coroutines.launch
 
 class ProductsFragment : Fragment() {
 
@@ -18,6 +23,10 @@ class ProductsFragment : Fragment() {
 
     private val adapterProducts by lazy {
         ProductsAdapter()
+    }
+
+    private val productsViewModel by lazy {
+        ViewModelProvider(this)[ProductsViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -31,58 +40,37 @@ class ProductsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
+        observeViewModel()
+    }
+
+    private fun observeViewModel() {
+        lifecycleScope.launch {
+            productsViewModel.productsScreenState.collect { state ->
+                when (state) {
+                    is ProductsScreenState.Content -> {
+                        adapterProducts.submitList(state.products)
+                    }
+
+                    is ProductsScreenState.Loading -> {
+
+                    }
+
+                    is ProductsScreenState.Error -> {
+
+                    }
+                }
+            }
+        }
+
     }
 
     private fun setupRecyclerView() {
         binding.rvItems.adapter = adapterProducts
-        val testProducts = listOf(
-            Product(
-                1,
-                "«Один»",
-                1000,
-                "https://static.rustore.ru/apk/256380351/content/ICON/d4db7e5a-8a8d-46ad-9509-1cefcf2e40ab.jpg",
-                "some description text",
-                "https://static.rustore.ru/apk/256380351/content/ICON/d4db7e5a-8a8d-46ad-9509-1cefcf2e40ab.jpg"
-            ),
-            Product(
-                2,
-                "«Два»",
-                1000,
-                "https://static.rustore.ru/apk/256380351/content/ICON/d4db7e5a-8a8d-46ad-9509-1cefcf2e40ab.jpg",
-                "some description text",
-                "https://static.rustore.ru/apk/256380351/content/ICON/d4db7e5a-8a8d-46ad-9509-1cefcf2e40ab.jpg"
-            ),
-            Product(
-                3,
-                "«Три»",
-                1000,
-                "https://static.rustore.ru/apk/256380351/content/ICON/d4db7e5a-8a8d-46ad-9509-1cefcf2e40ab.jpg",
-                "some description text",
-                "https://static.rustore.ru/apk/256380351/content/ICON/d4db7e5a-8a8d-46ad-9509-1cefcf2e40ab.jpg"
-            ),
-            Product(
-                4,
-                "«Четыре»",
-                1000,
-                "https://static.rustore.ru/apk/256380351/content/ICON/d4db7e5a-8a8d-46ad-9509-1cefcf2e40ab.jpg",
-                "some description text",
-                "https://static.rustore.ru/apk/256380351/content/ICON/d4db7e5a-8a8d-46ad-9509-1cefcf2e40ab.jpg"
-            ),
-            Product(
-                5,
-                "«Пять»",
-                1000,
-                "https://static.rustore.ru/apk/256380351/content/ICON/d4db7e5a-8a8d-46ad-9509-1cefcf2e40ab.jpg",
-                "some description text",
-                "https://static.rustore.ru/apk/256380351/content/ICON/d4db7e5a-8a8d-46ad-9509-1cefcf2e40ab.jpg"
-            ),
-        )
-        adapterProducts.submitList(testProducts)
         adapterProducts.onProductClickListener = { product ->
             binding.llItemDetails.visibility = View.VISIBLE
             binding.tvItemDescription.text = product.description
-            Picasso.get().load(product.image).into(binding.ivItemImage)
-            Picasso.get().load(product.image).into(binding.ivItemImage)
+            Picasso.get().load(product.images.random().ifEmpty { product.thumbnail })
+                .into(binding.ivItemImage)
         }
         binding.llItemDetails.setOnClickListener {
             it.visibility = View.GONE
