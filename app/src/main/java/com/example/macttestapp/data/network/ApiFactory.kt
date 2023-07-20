@@ -1,4 +1,4 @@
-package com.example.macttestapp.data
+package com.example.macttestapp.data.network
 
 import android.app.Application
 import androidx.preference.PreferenceManager
@@ -7,6 +7,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 
 class ApiFactory(
     application: Application,
@@ -21,10 +22,10 @@ class ApiFactory(
         })
         .build()
     private val retrofit = Retrofit.Builder()
-        .baseUrl(baseUrl)
+        .baseUrl("https://dummyjson.com/")
         .addConverterFactory(GsonConverterFactory.create())
         .client(okHttpClient)
         .build()
 
-    //val apiService: ApiService = retrofit.create()
+    val apiService: ApiService = retrofit.create()
 }
