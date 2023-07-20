@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.quotesFragment,
-                R.id.itemsFragment,
+                R.id.productsFragment,
                 R.id.settingsFragment
             ), findViewById(R.id.drawer_layout)
         )
