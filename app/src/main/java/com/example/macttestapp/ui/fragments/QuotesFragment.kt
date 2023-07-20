@@ -16,6 +16,7 @@ import com.example.macttestapp.ui.adapters.QuotesAdapter
 import com.example.macttestapp.ui.state.QuotesScreenState
 import com.example.macttestapp.ui.viewmodel.QuotesViewModel
 import com.example.macttestapp.ui.viewmodel.ViewModelFactory
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -56,6 +57,13 @@ class QuotesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         observeViewModel()
+        bindListeners()
+    }
+
+    private fun bindListeners() {
+        binding.swipeRefreshLayout.setOnRefreshListener{
+            quotesViewModel.getQuotes()
+        }
     }
 
     private fun setupRecyclerView() {
@@ -67,17 +75,25 @@ class QuotesFragment : Fragment() {
             quotesViewModel.quotesScreenState.collect { state ->
                 when (state) {
                     is QuotesScreenState.Content -> {
+                        binding.errorLayout.visibility = View.GONE
+                        binding.rvQuotes.visibility = View.VISIBLE
                         adapterEateries.submitList(state.quotes)
                     }
 
                     is QuotesScreenState.Loading -> {
-
+                        binding.swipeRefreshLayout.isRefreshing = true
                     }
 
                     is QuotesScreenState.Error -> {
-
+                        binding.rvQuotes.visibility = View.GONE
+                        binding.errorLayout.visibility = View.VISIBLE
                     }
                 }
+            }
+        }
+        lifecycleScope.launch {
+            quotesViewModel.isRefreshing.collect{
+                binding.swipeRefreshLayout.isRefreshing = it
             }
         }
     }
