@@ -3,6 +3,7 @@ package com.example.macttestapp.ui.viewmodel
 import android.app.Application
 import androidx.core.content.edit
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.preference.PreferenceManager
 import com.example.macttestapp.MactTestApp
@@ -16,16 +17,11 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SettingsViewModel(
-    application: Application,
-) : AndroidViewModel(application) {
-
-    val mapper = Mapper()
-    val apiService = ApiFactory(application).apiService
-    val repo = RepositoryImpl(apiService, mapper)
-    private val getServerStatusUseCase: GetServerStatusUseCase = GetServerStatusUseCase(repo)
-
+class SettingsViewModel @Inject constructor(
+    private val getServerStatusUseCase: GetServerStatusUseCase,
+) : ViewModel() {
 
     private val _settingsScreenState =
         MutableStateFlow<SettingsScreenState>(SettingsScreenState.Loading)

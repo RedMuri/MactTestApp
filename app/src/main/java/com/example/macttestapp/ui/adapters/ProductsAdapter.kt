@@ -7,8 +7,9 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.macttestapp.databinding.RvItemProductBinding
 import com.example.macttestapp.domain.model.Product
 import com.squareup.picasso.Picasso
+import javax.inject.Inject
 
-class ProductsAdapter() :
+class ProductsAdapter @Inject constructor() :
     ListAdapter<Product, ProductsAdapter.ProductViewHolder>(ProductDiffCallback()) {
 
     var onProductClickListener: ((Product) -> Unit)? = null

@@ -6,8 +6,9 @@ import com.example.macttestapp.data.model.ServerStatusDto
 import com.example.macttestapp.domain.model.Product
 import com.example.macttestapp.domain.model.Quote
 import com.example.macttestapp.domain.model.ServerStatus
+import javax.inject.Inject
 
-class Mapper {
+class Mapper @Inject constructor(){
 
     fun mapQuoteDtoToEntity(quoteDto: QuoteDto) = Quote(
         id = quoteDto.id,

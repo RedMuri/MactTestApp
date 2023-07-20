@@ -6,8 +6,9 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.macttestapp.databinding.RvItemQuoteBinding
 import com.example.macttestapp.domain.model.Quote
+import javax.inject.Inject
 
-class QuotesAdapter() : ListAdapter<Quote, QuotesAdapter.QuoteViewHolder>(QuoteDiffCallback()) {
+class QuotesAdapter @Inject constructor() : ListAdapter<Quote, QuotesAdapter.QuoteViewHolder>(QuoteDiffCallback()) {
 
     class QuoteViewHolder(val binding: RvItemQuoteBinding) :
         ViewHolder(binding.root)
