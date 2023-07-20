@@ -1,10 +1,11 @@
-package com.example.macttestapp
+package com.example.macttestapp.ui.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.macttestapp.R
 
 class SettingsFragment : Fragment() {
 

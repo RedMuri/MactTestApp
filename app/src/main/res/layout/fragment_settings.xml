@@ -1,13 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SettingsFragment">
+    android:clickable="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical"
+    android:padding="8dp"
+    tools:context=".ui.fragments.SettingsFragment">
 
-    <TextView
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_server_address"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Settings" />
+        android:layout_height="wrap_content"
+        android:touchscreenBlocksFocus="true"
+        app:boxCornerRadiusBottomEnd="8dp"
+        app:boxCornerRadiusBottomStart="8dp"
+        app:boxCornerRadiusTopEnd="8dp"
+        app:boxCornerRadiusTopStart="8dp">
 
-</FrameLayout>
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_server_address"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:hint="Адрес сервера"
+            android:textSize="16sp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/save_button"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/default_bt_bg"
+        android:text="Сохранить"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="Статус сервера: " />
+
+        <TextView
+            android:id="@+id/tv_server_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="Подключено" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/check_button"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/default_bt_bg"
+        android:text="Обновить"
+        android:textSize="18sp" />
+
+</LinearLayout>
