@@ -3,7 +3,7 @@
     <item android:id="@+id/quotesFragment"
         android:title="Цитаты"
         android:icon="@drawable/ic_launcher_background" />
-    <item android:id="@+id/itemsFragment"
+    <item android:id="@+id/productsFragment"
         android:title="Товары"
         android:icon="@drawable/ic_launcher_background" />
     <item android:id="@+id/settingsFragment"

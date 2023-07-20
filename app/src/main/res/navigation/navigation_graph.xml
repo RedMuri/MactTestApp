@@ -7,17 +7,17 @@
 
     <fragment
         android:id="@+id/quotesFragment"
-        android:name="com.example.macttestapp.QuotesFragment"
+        android:name="com.example.macttestapp.ui.fragments.QuotesFragment"
         android:label="Quotes"
         tools:layout="@layout/fragment_quotes" />
     <fragment
-        android:id="@+id/itemsFragment"
-        android:name="com.example.macttestapp.ItemsFragment"
-        android:label="Items"
-        tools:layout="@layout/fragment_items" />
+        android:id="@+id/productsFragment"
+        android:name="com.example.macttestapp.ui.fragments.ProductsFragment"
+        android:label="Products"
+        tools:layout="@layout/fragment_products" />
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.example.macttestapp.SettingsFragment"
+        android:name="com.example.macttestapp.ui.fragments.SettingsFragment"
         android:label="Settings"
         tools:layout="@layout/fragment_settings" />
 </navigation>
