@@ -3,6 +3,7 @@
     <style name="Base.Theme.MactTestApp" parent="Theme.Material3.DayNight">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/primary</item>
     </style>
 
     <style name="Theme.MactTestApp" parent="Base.Theme.MactTestApp" />
