@@ -27,9 +27,9 @@ class ProductsViewModel @Inject constructor(
         getProducts()
     }
 
-    fun getProducts() {
+    fun getProducts(skip: Int = 0, limit: Int = 15) {
         viewModelScope.launch {
-            getProductsUseCase()
+            getProductsUseCase(skip, limit)
                 .onCompletion {
                     _isRefreshing.emit(false)
                 }

@@ -4,5 +4,5 @@ import com.example.macttestapp.domain.Repository
 import javax.inject.Inject
 
 class GetProductsUseCase @Inject constructor(private val repository: Repository) {
-    operator fun invoke() = repository.getProducts()
+    operator fun invoke(skip: Int,limit: Int) = repository.getProducts(skip, limit)
 }

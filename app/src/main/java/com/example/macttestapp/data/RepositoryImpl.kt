@@ -14,14 +14,14 @@ class RepositoryImpl @Inject constructor(
     private val mapper: Mapper,
 ) : Repository {
 
-    override fun getQuotes(): Flow<List<Quote>> = flow {
-        val response = apiService!!.getQuotes()
+    override fun getQuotes(skip: Int,limit: Int): Flow<List<Quote>> = flow {
+        val response = apiService!!.getQuotes(skip, limit)
         val quotes = response.quotes.map { mapper.mapQuoteDtoToEntity(it) }
         emit(quotes)
     }
 
-    override fun getProducts(): Flow<List<Product>> = flow {
-        val response = apiService!!.getProducts()
+    override fun getProducts(skip: Int,limit: Int): Flow<List<Product>> = flow {
+        val response = apiService!!.getProducts(skip,limit)
         val products = response.products.map { mapper.mapProductDtoToEntity(it) }
         emit(products)
     }
