@@ -79,7 +79,7 @@ class QuotesFragment : Fragment() {
                     is QuotesScreenState.Content -> {
                         binding.errorLayout.visibility = View.GONE
                         binding.rvQuotes.visibility = View.VISIBLE
-                        val quotes = adapterQuotes.currentList + state.quotes
+                        val quotes = (adapterQuotes.currentList + state.quotes).distinct()
                         adapterQuotes.submitList(quotes)
                     }
 
