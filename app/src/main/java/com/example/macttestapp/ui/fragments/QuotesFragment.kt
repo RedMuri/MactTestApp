@@ -2,21 +2,18 @@ package com.example.macttestapp.ui.fragments
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.preference.PreferenceManager
 import com.example.macttestapp.MactTestApp
 import com.example.macttestapp.databinding.FragmentQuotesBinding
 import com.example.macttestapp.ui.adapters.QuotesAdapter
 import com.example.macttestapp.ui.state.QuotesScreenState
 import com.example.macttestapp.ui.viewmodel.QuotesViewModel
 import com.example.macttestapp.ui.viewmodel.ViewModelFactory
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -27,7 +24,7 @@ class QuotesFragment : Fragment() {
     private val binding: FragmentQuotesBinding
         get() = _binding ?: throw RuntimeException("FragmentQuotesBinding == null")
 
-    private val adapterEateries by lazy {
+    private val adapterQuotes by lazy {
         QuotesAdapter()
     }
 
@@ -67,7 +64,7 @@ class QuotesFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        binding.rvQuotes.adapter = adapterEateries
+        binding.rvQuotes.adapter = adapterQuotes
     }
 
     private fun observeViewModel() {
@@ -77,7 +74,7 @@ class QuotesFragment : Fragment() {
                     is QuotesScreenState.Content -> {
                         binding.errorLayout.visibility = View.GONE
                         binding.rvQuotes.visibility = View.VISIBLE
-                        adapterEateries.submitList(state.quotes)
+                        adapterQuotes.submitList(state.quotes)
                     }
 
                     is QuotesScreenState.Loading -> {
@@ -87,6 +84,7 @@ class QuotesFragment : Fragment() {
                     is QuotesScreenState.Error -> {
                         binding.rvQuotes.visibility = View.GONE
                         binding.errorLayout.visibility = View.VISIBLE
+                        binding.swipeRefreshLayout.isRefreshing = false
                     }
                 }
             }

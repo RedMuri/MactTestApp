@@ -54,10 +54,17 @@ class ProductsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         observeViewModel()
+        bindListeners()
+    }
+
+    private fun bindListeners() {
+        binding.swipeRefreshLayout.setOnRefreshListener{
+            productsViewModel.getProducts()
+        }
     }
 
     private fun setupRecyclerView() {
-        binding.rvItems.adapter = adapterProducts
+        binding.rvProducts.adapter = adapterProducts
         adapterProducts.onProductClickListener = { product ->
             binding.llItemDetails.visibility = View.VISIBLE
             binding.tvItemDescription.text = product.description
@@ -74,17 +81,26 @@ class ProductsFragment : Fragment() {
             productsViewModel.productsScreenState.collect { state ->
                 when (state) {
                     is ProductsScreenState.Content -> {
+                        binding.errorLayout.visibility = View.GONE
+                        binding.rvProducts.visibility = View.VISIBLE
                         adapterProducts.submitList(state.products)
                     }
 
                     is ProductsScreenState.Loading -> {
-
+                        binding.swipeRefreshLayout.isRefreshing = true
                     }
 
                     is ProductsScreenState.Error -> {
-
+                        binding.rvProducts.visibility = View.GONE
+                        binding.errorLayout.visibility = View.VISIBLE
+                        binding.swipeRefreshLayout.isRefreshing = false
                     }
                 }
+            }
+        }
+        lifecycleScope.launch {
+            productsViewModel.isRefreshing.collect{
+                binding.swipeRefreshLayout.isRefreshing = it
             }
         }
     }
