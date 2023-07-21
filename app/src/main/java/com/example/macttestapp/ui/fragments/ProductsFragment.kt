@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.macttestapp.MactTestApp
+import com.example.macttestapp.R
 import com.example.macttestapp.databinding.FragmentProductsBinding
 import com.example.macttestapp.ui.adapters.ProductsAdapter
 import com.example.macttestapp.ui.state.ProductsScreenState
@@ -59,7 +60,7 @@ class ProductsFragment : Fragment() {
     }
 
     private fun bindListeners() {
-        binding.swipeRefreshLayout.setOnRefreshListener{
+        binding.swipeRefreshLayout.setOnRefreshListener {
             productsViewModel.getProducts()
         }
         binding.llItemDetails.setOnClickListener {
@@ -69,9 +70,10 @@ class ProductsFragment : Fragment() {
             binding.llItemDetails.visibility = View.VISIBLE
             binding.tvItemDescription.text = product.description
             Picasso.get().load(product.images.random().ifEmpty { product.thumbnail })
+                .placeholder(R.drawable.progress_animation)
                 .into(binding.ivItemImage)
         }
-        adapterProducts.onReachEndListener = {skip ->
+        adapterProducts.onReachEndListener = { skip ->
             binding.pbBottom.visibility = View.VISIBLE
             productsViewModel.getProducts(skip = skip)
         }
@@ -106,7 +108,7 @@ class ProductsFragment : Fragment() {
             }
         }
         lifecycleScope.launch {
-            productsViewModel.isRefreshing.collect{
+            productsViewModel.isRefreshing.collect {
                 binding.swipeRefreshLayout.isRefreshing = it
             }
         }

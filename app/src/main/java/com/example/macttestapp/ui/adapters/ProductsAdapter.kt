@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.example.macttestapp.R
 import com.example.macttestapp.databinding.RvItemProductBinding
 import com.example.macttestapp.domain.model.Product
 import com.squareup.picasso.Picasso
@@ -31,7 +32,7 @@ class ProductsAdapter @Inject constructor() :
                     onReachEndListener?.invoke(itemCount)
                 tvProductTitle.text = title
                 tvProductPrice.text = price.toString()
-                Picasso.get().load(thumbnail).into(ivProductThumbnail)
+                Picasso.get().load(thumbnail).placeholder(R.drawable.progress_animation).into(ivProductThumbnail)
                 root.setOnClickListener {
                     onProductClickListener?.invoke(this)
                 }
