@@ -1,11 +1,12 @@
 package com.example.macttestapp.ui.fragments
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.URLUtil
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -14,11 +15,13 @@ import androidx.preference.PreferenceManager
 import com.example.macttestapp.MactTestApp
 import com.example.macttestapp.databinding.FragmentSettingsBinding
 import com.example.macttestapp.ui.state.SettingsScreenState
-import com.example.macttestapp.ui.viewmodel.ProductsViewModel
 import com.example.macttestapp.ui.viewmodel.SettingsViewModel
 import com.example.macttestapp.ui.viewmodel.ViewModelFactory
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.system.exitProcess
+
 
 class SettingsFragment : Fragment() {
 
@@ -71,10 +74,31 @@ class SettingsFragment : Fragment() {
             settingsViewModel.getServerStatus()
         }
         binding.saveButton.setOnClickListener {
-            val serverAddress = binding.etServerAddress.text.toString()
-            settingsViewModel.updateServerAddress(serverAddress, requireActivity().application)
-
+            val serverAddress = binding.etServerAddress.text.toString().trim()
+            if (URLUtil.isValidUrl(serverAddress) && !serverAddress.contains(' ')) {
+                binding.tilServerAddress.isErrorEnabled = false
+                settingsViewModel.updateServerAddress(serverAddress, requireActivity().application)
+                binding.retryLayout.visibility = View.VISIBLE
+            } else {
+                binding.tilServerAddress.error = "Неправильный формат адреса"
+            }
         }
+        binding.btNo.setOnClickListener {
+            binding.retryLayout.visibility = View.GONE
+        }
+        binding.btYes.setOnClickListener {
+            restartApp()
+        }
+    }
+
+    private fun restartApp() {
+        val packageManager = requireActivity().application.packageManager
+        val intent =
+            packageManager.getLaunchIntentForPackage(requireActivity().application.packageName)
+        val componentName = intent!!.component
+        val mainIntent = Intent.makeRestartActivityTask(componentName)
+        requireActivity().application.startActivity(mainIntent)
+        Runtime.getRuntime().exit(0)
     }
 
     private fun observeViewModel() {
