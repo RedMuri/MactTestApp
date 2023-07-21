@@ -18,7 +18,6 @@ import com.example.macttestapp.databinding.FragmentSettingsBinding
 import com.example.macttestapp.ui.state.SettingsScreenState
 import com.example.macttestapp.ui.viewmodel.SettingsViewModel
 import com.example.macttestapp.ui.viewmodel.ViewModelFactory
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

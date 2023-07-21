@@ -1,7 +1,6 @@
 package com.example.macttestapp.di
 
 import android.app.Application
-import com.example.macttestapp.MactTestApp
 import com.example.macttestapp.ui.fragments.ProductsFragment
 import com.example.macttestapp.ui.fragments.QuotesFragment
 import com.example.macttestapp.ui.fragments.SettingsFragment
