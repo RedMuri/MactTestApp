@@ -20,7 +20,6 @@ import com.example.macttestapp.ui.viewmodel.ViewModelFactory
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.system.exitProcess
 
 
 class SettingsFragment : Fragment() {
@@ -110,7 +109,7 @@ class SettingsFragment : Fragment() {
                     }
 
                     is SettingsScreenState.Loading -> {
-                        binding.tvServerStatus.text = "Жди"
+                        binding.tvServerStatus.text = "..."
                     }
 
                     is SettingsScreenState.Error -> {

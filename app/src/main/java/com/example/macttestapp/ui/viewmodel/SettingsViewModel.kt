@@ -12,9 +12,13 @@ import com.example.macttestapp.data.RepositoryImpl
 import com.example.macttestapp.data.network.ApiFactory
 import com.example.macttestapp.domain.usecases.GetServerStatusUseCase
 import com.example.macttestapp.ui.state.SettingsScreenState
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -34,7 +38,10 @@ class SettingsViewModel @Inject constructor(
     fun getServerStatus() {
         viewModelScope.launch {
             getServerStatusUseCase()
-                .onStart { _settingsScreenState.emit(SettingsScreenState.Loading) }
+                .onStart {
+                    _settingsScreenState.emit(SettingsScreenState.Loading)
+                    delay(500)
+                }
                 .catch {
                     _settingsScreenState.emit(SettingsScreenState.Error)
                 }.collect { status ->
