@@ -13,6 +13,7 @@ class ProductsAdapter @Inject constructor() :
     ListAdapter<Product, ProductsAdapter.ProductViewHolder>(ProductDiffCallback()) {
 
     var onProductClickListener: ((Product) -> Unit)? = null
+    var onReachEndListener: ((Int) -> Unit)? = null
 
     class ProductViewHolder(val binding: RvItemProductBinding) :
         ViewHolder(binding.root)
@@ -26,6 +27,8 @@ class ProductsAdapter @Inject constructor() :
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         with(holder.binding) {
             with(currentList[position]) {
+                if (currentList.size - position < 4)
+                    onReachEndListener?.invoke(itemCount)
                 tvProductTitle.text = title
                 tvProductPrice.text = price.toString()
                 Picasso.get().load(thumbnail).into(ivProductThumbnail)

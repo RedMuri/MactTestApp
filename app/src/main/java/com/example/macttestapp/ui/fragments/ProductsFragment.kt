@@ -15,6 +15,7 @@ import com.example.macttestapp.ui.state.ProductsScreenState
 import com.example.macttestapp.ui.viewmodel.ProductsViewModel
 import com.example.macttestapp.ui.viewmodel.ViewModelFactory
 import com.squareup.picasso.Picasso
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -61,29 +62,35 @@ class ProductsFragment : Fragment() {
         binding.swipeRefreshLayout.setOnRefreshListener{
             productsViewModel.getProducts()
         }
-    }
-
-    private fun setupRecyclerView() {
-        binding.rvProducts.adapter = adapterProducts
+        binding.llItemDetails.setOnClickListener {
+            it.visibility = View.GONE
+        }
         adapterProducts.onProductClickListener = { product ->
             binding.llItemDetails.visibility = View.VISIBLE
             binding.tvItemDescription.text = product.description
             Picasso.get().load(product.images.random().ifEmpty { product.thumbnail })
                 .into(binding.ivItemImage)
         }
-        binding.llItemDetails.setOnClickListener {
-            it.visibility = View.GONE
+        adapterProducts.onReachEndListener = {skip ->
+            binding.pbBottom.visibility = View.VISIBLE
+            productsViewModel.getProducts(skip = skip)
         }
+    }
+
+    private fun setupRecyclerView() {
+        binding.rvProducts.adapter = adapterProducts
     }
 
     private fun observeViewModel() {
         lifecycleScope.launch {
             productsViewModel.productsScreenState.collect { state ->
+                binding.pbBottom.visibility = View.GONE
                 when (state) {
                     is ProductsScreenState.Content -> {
                         binding.errorLayout.visibility = View.GONE
                         binding.rvProducts.visibility = View.VISIBLE
-                        adapterProducts.submitList(state.products)
+                        val products = adapterProducts.currentList + state.products
+                        adapterProducts.submitList(products)
                     }
 
                     is ProductsScreenState.Loading -> {
