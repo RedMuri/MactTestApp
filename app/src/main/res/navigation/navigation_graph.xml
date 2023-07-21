@@ -9,7 +9,11 @@
         android:id="@+id/quotesFragment"
         android:name="com.example.macttestapp.ui.fragments.QuotesFragment"
         android:label="Quotes"
-        tools:layout="@layout/fragment_quotes" />
+        tools:layout="@layout/fragment_quotes" >
+        <action
+            android:id="@+id/action_quotesFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/productsFragment"
         android:name="com.example.macttestapp.ui.fragments.ProductsFragment"

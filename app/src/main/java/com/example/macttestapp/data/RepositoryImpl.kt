@@ -10,24 +10,24 @@ import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class RepositoryImpl @Inject constructor(
-    private val apiService: ApiService,
+    private val apiService: ApiService?,
     private val mapper: Mapper,
 ) : Repository {
 
     override fun getQuotes(): Flow<List<Quote>> = flow {
-        val response = apiService.getQuotes()
+        val response = apiService!!.getQuotes()
         val quotes = response.quotes.map { mapper.mapQuoteDtoToEntity(it) }
         emit(quotes)
     }
 
     override fun getProducts(): Flow<List<Product>> = flow {
-        val response = apiService.getProducts()
+        val response = apiService!!.getProducts()
         val products = response.products.map { mapper.mapProductDtoToEntity(it) }
         emit(products)
     }
 
     override fun getServerStatus(): Flow<ServerStatus> = flow {
-        val response = apiService.getServerStatus()
+        val response = apiService!!.getServerStatus()
         emit(mapper.mapServerStatusDtoToEntity(response))
     }
 }

@@ -2,11 +2,14 @@ package com.example.macttestapp
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavDirections
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import androidx.preference.PreferenceManager
 import com.google.android.material.navigation.NavigationView
 
 
@@ -22,6 +25,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setupNavigationDrawer()
+        val preferManager = PreferenceManager.getDefaultSharedPreferences(application)
+        val baseUrl = preferManager.getString(MactTestApp.BASE_URL, null)
+        if (baseUrl == null)
+            navController.navigate(R.id.settingsFragment)
     }
 
     private fun setupNavigationDrawer() {

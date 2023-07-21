@@ -22,11 +22,12 @@ class ApiFactory @Inject constructor(
             level = HttpLoggingInterceptor.Level.BODY
         })
         .build()
-    private val retrofit = Retrofit.Builder()
-        .baseUrl("https://dummyjson.com/")
-        .addConverterFactory(GsonConverterFactory.create())
-        .client(okHttpClient)
-        .build()
+    private val retrofit =
+        Retrofit.Builder()
+            .baseUrl(baseUrl)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(okHttpClient)
+            .build()
 
     val apiService: ApiService = retrofit.create()
 }

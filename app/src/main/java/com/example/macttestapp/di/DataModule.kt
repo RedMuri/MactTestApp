@@ -22,8 +22,12 @@ interface DataModule {
         @Provides
         fun provideApiService(
             application: Application,
-        ): ApiService {
-            return ApiFactory(application).apiService
+        ): ApiService? {
+            return try {
+                ApiFactory(application).apiService
+            } catch (_: Exception) {
+                null
+            }
         }
     }
 }
