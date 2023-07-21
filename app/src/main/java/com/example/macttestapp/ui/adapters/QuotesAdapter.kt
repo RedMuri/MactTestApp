@@ -26,7 +26,7 @@ class QuotesAdapter @Inject constructor() : ListAdapter<Quote, QuotesAdapter.Quo
             with(currentList[position]) {
                 if (itemCount - position == 1)
                     onReachEndListener?.invoke(itemCount)
-                tvQuoteAuthor.text = author
+                tvQuoteAuthor.text = "—$author"
                 tvQuoteText.text = text
             }
         }
