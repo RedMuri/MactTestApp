@@ -1,25 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    android:layout_marginBottom="16dp"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:clickable="true"
     app:cardCornerRadius="20dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:padding="8dp"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tv_product_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Phone"
-            android:textColor="@color/black"
-            android:textSize="22sp"
+        <ImageView
+            android:id="@+id/iv_product_thumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_launcher_background"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -27,21 +26,26 @@
             android:id="@+id/tv_product_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:textStyle="bold"
             android:text="1200"
             android:textColor="@color/black"
-            android:textSize="18sp"
+            android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_product_title" />
+            app:layout_constraintTop_toBottomOf="@+id/iv_product_thumbnail" />
 
-        <ImageView
-            android:id="@+id/iv_product_thumbnail"
+        <TextView
+            android:id="@+id/tv_product_title"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintDimensionRatio="1:1"
-            android:src="@drawable/ic_launcher_background"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:layout_constraintVertical_bias="0"
+            android:text="Phone"
+            android:textColor="@color/black"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
+            app:layout_constraintStart_toStartOf="@+id/iv_product_thumbnail"
+            app:layout_constraintTop_toBottomOf="@+id/tv_product_price" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

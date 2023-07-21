@@ -1,13 +1,18 @@
 package com.example.macttestapp.ui.fragments
 
 import android.content.Context
+import android.graphics.Insets
 import android.os.Bundle
+import android.util.DisplayMetrics
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowInsets
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.macttestapp.MactTestApp
 import com.example.macttestapp.R
 import com.example.macttestapp.databinding.FragmentProductsBinding
@@ -16,9 +21,9 @@ import com.example.macttestapp.ui.state.ProductsScreenState
 import com.example.macttestapp.ui.viewmodel.ProductsViewModel
 import com.example.macttestapp.ui.viewmodel.ViewModelFactory
 import com.squareup.picasso.Picasso
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
 
 class ProductsFragment : Fragment() {
 
@@ -81,6 +86,13 @@ class ProductsFragment : Fragment() {
 
     private fun setupRecyclerView() {
         binding.rvProducts.adapter = adapterProducts
+        binding.rvProducts.layoutManager = GridLayoutManager(requireContext(), getColumnCount())
+    }
+
+    private fun getColumnCount(): Int {
+        val metrics = requireActivity().resources.displayMetrics
+        val width = metrics.widthPixels / metrics.density.toInt()
+        return if (width / 250 > 2) width / 250 else 2
     }
 
     private fun observeViewModel() {
