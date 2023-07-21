@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/quotesFragment"
         android:name="com.example.macttestapp.ui.fragments.QuotesFragment"
-        android:label="Quotes"
+        android:label="@string/quotes_menu_title"
         tools:layout="@layout/fragment_quotes" >
         <action
             android:id="@+id/action_quotesFragment_to_settingsFragment"
@@ -17,11 +17,11 @@
     <fragment
         android:id="@+id/productsFragment"
         android:name="com.example.macttestapp.ui.fragments.ProductsFragment"
-        android:label="Products"
+        android:label="@string/products_menu_title"
         tools:layout="@layout/fragment_products" />
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.macttestapp.ui.fragments.SettingsFragment"
-        android:label="Settings"
+        android:label="@string/settings_menu_title"
         tools:layout="@layout/fragment_settings" />
 </navigation>

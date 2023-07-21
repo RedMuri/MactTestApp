@@ -31,7 +31,7 @@ class ProductsAdapter @Inject constructor() :
                 if (itemCount - position == 1)
                     onReachEndListener?.invoke(itemCount)
                 tvProductTitle.text = title
-                tvProductPrice.text = "$price$"
+                tvProductPrice.text = String.format("%s$", price)
                 Picasso.get().load(thumbnail).placeholder(R.drawable.progress_animation).into(ivProductThumbnail)
                 root.setOnClickListener {
                     onProductClickListener?.invoke(this)

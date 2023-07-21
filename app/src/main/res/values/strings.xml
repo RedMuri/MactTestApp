@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">MactTestApp</string>
+    <string name="quotes_menu_title">Цитаты</string>
+    <string name="products_menu_title">Товары</string>
+    <string name="settings_menu_title">Настроки</string>
+    <string name="product_image">Product image</string>
+    <string name="error_image">Error image</string>
+    <string name="error_text">Упс! Что-то пошло не так... \nПроверьте подключение к интернету.</string>
+    <string name="server_address">Адрес сервера</string>
+    <string name="bt_save">Сохранить</string>
+    <string name="server_status">Статус сервера:</string>
+    <string name="connected">Подключено</string>
+    <string name="refresh">Обновить</string>
+    <string name="settings_reopen">После изменения настроек необходимо перезагрузить приложение.\nПерезагрузить сейчас?</string>
+    <string name="bt_later">Позже</string>
+    <string name="bt_yes">Да</string>
+    <string name="product_smal_image">Product smal image</string>
+    <string name="server_working">Работает</string>
+    <string name="server_loading">...</string>
+    <string name="server_error">Ошибка</string>
+    <string name="wrong_address_format">Неправильный формат адреса</string>
 </resources>

@@ -20,8 +20,8 @@
                 android:id="@+id/rv_quotes"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:orientation="vertical"
                 android:layout_weight="1"
+                android:orientation="vertical"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/rv_item_quote" />
 
@@ -32,30 +32,19 @@
                 android:visibility="gone" />
         </LinearLayout>
 
-        <LinearLayout
+        <TextView
             android:id="@+id/error_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/img_error" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:layout_marginBottom="40dp"
-                android:text="Упс! Что-то пошло не так... \nПроверьте подключение к интернету."
-                android:textAlignment="center"
-                android:textSize="16sp" />
-
-        </LinearLayout>
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="40dp"
+            android:contentDescription="@string/error_image"
+            android:text="@string/error_text"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            android:visibility="gone"
+            app:drawableTopCompat="@drawable/img_error" />
 
     </RelativeLayout>
 

@@ -29,7 +29,7 @@
                 android:id="@+id/et_server_address"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:hint="Адрес сервера"
+                android:hint="@string/server_address"
                 android:textSize="16sp" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -41,7 +41,7 @@
             android:layout_marginTop="12dp"
             android:background="@drawable/default_bt_bg"
             android:enabled="false"
-            android:text="Сохранить"
+            android:text="@string/bt_save"
             android:textSize="18sp" />
 
         <LinearLayout
@@ -53,14 +53,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Статус сервера: "
+                android:text="@string/server_status"
                 android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/tv_server_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Подключено"
+                android:text="@string/connected"
                 android:textSize="18sp" />
         </LinearLayout>
 
@@ -70,7 +70,7 @@
             android:layout_height="60dp"
             android:layout_marginTop="12dp"
             android:background="@drawable/default_bt_bg"
-            android:text="Обновить"
+            android:text="@string/refresh"
             android:textSize="18sp" />
 
     </LinearLayout>
@@ -94,11 +94,10 @@
             android:padding="8dp">
 
             <TextView
-                android:id="@+id/tv_item_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="8dp"
-                android:text="После изменения настроек необходимо перезагрузить приложение.\nПерезагрузить сейчас?"
+                android:text="@string/settings_reopen"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
 
@@ -110,16 +109,18 @@
 
                 <Button
                     android:id="@+id/bt_no"
+                    style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
-                    android:text="Позже" />
+                    android:text="@string/bt_later" />
 
                 <Button
                     android:id="@+id/bt_yes"
+                    style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Да" />
+                    android:text="@string/bt_yes" />
 
             </LinearLayout>
 

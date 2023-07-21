@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
 import com.example.macttestapp.MactTestApp
+import com.example.macttestapp.R
 import com.example.macttestapp.databinding.FragmentSettingsBinding
 import com.example.macttestapp.ui.state.SettingsScreenState
 import com.example.macttestapp.ui.viewmodel.SettingsViewModel
@@ -79,7 +80,7 @@ class SettingsFragment : Fragment() {
                 settingsViewModel.updateServerAddress(serverAddress, requireActivity().application)
                 binding.retryLayout.visibility = View.VISIBLE
             } else {
-                binding.tilServerAddress.error = "Неправильный формат адреса"
+                binding.tilServerAddress.error = getString(R.string.wrong_address_format)
             }
         }
         binding.btNo.setOnClickListener {
@@ -105,15 +106,15 @@ class SettingsFragment : Fragment() {
             settingsViewModel.settingsScreenState.collect { state ->
                 when (state) {
                     is SettingsScreenState.Success -> {
-                        binding.tvServerStatus.text = "Работает"
+                        binding.tvServerStatus.text = getString(R.string.server_working)
                     }
 
                     is SettingsScreenState.Loading -> {
-                        binding.tvServerStatus.text = "..."
+                        binding.tvServerStatus.text = getString(R.string.server_loading)
                     }
 
                     is SettingsScreenState.Error -> {
-                        binding.tvServerStatus.text = "Ошибка"
+                        binding.tvServerStatus.text = getString(R.string.server_error)
                     }
                 }
             }
