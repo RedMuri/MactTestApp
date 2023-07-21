@@ -10,6 +10,8 @@ import javax.inject.Inject
 
 class QuotesAdapter @Inject constructor() : ListAdapter<Quote, QuotesAdapter.QuoteViewHolder>(QuoteDiffCallback()) {
 
+    var onReachEndListener: ((Int) -> Unit)? = null
+
     class QuoteViewHolder(val binding: RvItemQuoteBinding) :
         ViewHolder(binding.root)
 
@@ -22,6 +24,8 @@ class QuotesAdapter @Inject constructor() : ListAdapter<Quote, QuotesAdapter.Quo
     override fun onBindViewHolder(holder: QuoteViewHolder, position: Int) {
         with(holder.binding) {
             with(currentList[position]) {
+                if (itemCount - position == 1)
+                    onReachEndListener?.invoke(itemCount)
                 tvQuoteAuthor.text = author
                 tvQuoteText.text = text
             }

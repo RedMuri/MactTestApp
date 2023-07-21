@@ -27,7 +27,7 @@ class ProductsAdapter @Inject constructor() :
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         with(holder.binding) {
             with(currentList[position]) {
-                if (currentList.size - position < 4)
+                if (itemCount - position == 1)
                     onReachEndListener?.invoke(itemCount)
                 tvProductTitle.text = title
                 tvProductPrice.text = price.toString()

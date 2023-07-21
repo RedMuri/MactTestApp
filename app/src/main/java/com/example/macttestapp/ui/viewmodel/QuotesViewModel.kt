@@ -27,7 +27,7 @@ class QuotesViewModel @Inject constructor(
         getQuotes()
     }
 
-    fun getQuotes(skip: Int = 0, limit: Int = 10) {
+    fun getQuotes(skip: Int = 0, limit: Int = 15) {
         viewModelScope.launch {
             getQuotesUseCase(skip, limit)
                 .onCompletion {

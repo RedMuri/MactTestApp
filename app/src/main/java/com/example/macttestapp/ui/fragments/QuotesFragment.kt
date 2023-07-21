@@ -61,6 +61,10 @@ class QuotesFragment : Fragment() {
         binding.swipeRefreshLayout.setOnRefreshListener{
             quotesViewModel.getQuotes()
         }
+        adapterQuotes.onReachEndListener = {skip ->
+            binding.pbBottom.visibility = View.VISIBLE
+            quotesViewModel.getQuotes(skip = skip)
+        }
     }
 
     private fun setupRecyclerView() {
@@ -70,11 +74,13 @@ class QuotesFragment : Fragment() {
     private fun observeViewModel() {
         lifecycleScope.launch {
             quotesViewModel.quotesScreenState.collect { state ->
+                binding.pbBottom.visibility = View.GONE
                 when (state) {
                     is QuotesScreenState.Content -> {
                         binding.errorLayout.visibility = View.GONE
                         binding.rvQuotes.visibility = View.VISIBLE
-                        adapterQuotes.submitList(state.quotes)
+                        val quotes = adapterQuotes.currentList + state.quotes
+                        adapterQuotes.submitList(quotes)
                     }
 
                     is QuotesScreenState.Loading -> {
